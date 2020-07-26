@@ -2,13 +2,13 @@ package com.example.blws.mapper;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
+import org.apache.ibatis.annotations.Mapper;
 
 import com.example.blws.domain.EmpVO;
 
-@Service
-@Qualifier("EmpMapper")
+@Mapper
 public interface EmpMapper {
-	public List<EmpVO> selectEmpList() throws Exception;
+	List<EmpVO> selectEmpList() throws Exception;
+
+	String selectEmpCode() throws Exception;
 }

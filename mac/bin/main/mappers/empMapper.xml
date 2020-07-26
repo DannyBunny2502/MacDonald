@@ -5,7 +5,11 @@
 <mapper namespace="com.example.blws.mapper.EmpMapper">
 
     <select id="selectEmpList" resultType="com.example.blws.domain.EmpVO">
-        select EMP_CODE from TB_EMPLOYEE;
+        select * from TB_EMPLOYEE
+    </select>
+    
+    <select id="selectEmpCode" resultType="String">
+         select EMP_CODE from TB_EMPLOYEE where emp_passwd='123456'
     </select>
  
 </mapper>

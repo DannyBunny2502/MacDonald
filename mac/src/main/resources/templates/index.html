@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<meta charset="UTF-8">
+<head th:replace="fragments/commonConfig :: config"></head>
+<body>
+<header th:replace="fragments/commonHeader :: header"></header>
+
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script"></th:block>
+
+<!-- <div layout:fragment="content"> -->
+<div th:fragment="pageContents">
+
+
+</div>
+
+</body>
+
+</html>
+

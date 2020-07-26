@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+</head>
+<body>
+    <header th:fragment="header">
+        <div class="gnb">
+           <!-- <a href="/"><img src="/images/logo/logo.png" class="logo"></a> -->
+	        <nav>
+		        <ul class="gnb_wrap">
+		        	<li><a href="#">기준정보</a>
+		        		<ul class="gnb_sub_wrap">
+		        			<li><a href="/news">공통코드</a></li>
+		        			<li><a href="#">메뉴코드</a></li>
+		        			<li><a href="#">원료코드</a></li>
+		        			<li><a href="#">설비코드</a></li>
+		        			<li><a href="#">사원관리</a></li>
+		        		</ul>
+		        	</li>
+		        	
+		        	<li><a href="#">주문</a>
+		        		<ul class="gnb_sub_wrap">
+		        			<li><a href="/order/order">주문관리</a></li>
+		        			<li><a href="#">주문현황</a></li>
+		        		</ul>
+		        	</li>
+		        	
+		        	<li><a href="#">원료관리</a>
+		        		<ul class="gnb_sub_wrap">
+		        			<li><a href="community">원료입고</a></li>
+		        			<li><a href="#">재고현황</a></li>
+		        		</ul>
+		        	</li>
+		        
+		        	<li><a href="#">레포트</a>
+		        		<ul class="gnb_sub_wrap">
+		        			<li><a href="/recruit">레포트</a></li>
+		        		</ul>
+		        	</li>
+		        </ul>
+	        </nav>
+        </div>
+    </header>
+</body>
+</html>

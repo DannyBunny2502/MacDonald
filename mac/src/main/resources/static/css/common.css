@@ -1,0 +1,46 @@
+@charset "UTF-8";
+
+header { 
+	height : 75px;
+	background-color : #006F84;
+	position : fixed;
+	width : 100%;
+	z-index : 99999;
+	top : 0;
+	color : white;
+}
+
+.gnb{ 
+	width : 1170px;
+	margin : 0 auto;
+}
+
+.gnb_wrap {
+	float : left;
+}
+
+.gnb_wrap li {
+	list-style : none;
+	float : left;
+}
+
+.gnb_wrap a {
+	line-height:75px;
+	color:gray;
+	padding:0 15px;
+	display:block
+}
+
+.gnb_sub_wrap{
+	line-height : 75px;
+	padding : 0 15px;
+	display : block;
+}
+
+.gnb_sub_wrap a{
+	line-height : 75px;
+	padding : 0 15px;
+	display : block;
+	color : red;
+}
+
