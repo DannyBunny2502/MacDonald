@@ -13,5 +13,11 @@ public class OrderController {
 		return "order/order"; // �۾��� ������
 	}
 	
+	@GetMapping("/order/check")
+	public String check () {
+		System.out.println("확인");
+		return "order/check"; // �۾��� ������
+	}
+	
 }
 

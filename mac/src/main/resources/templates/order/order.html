@@ -1,54 +1,16 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="fragments/commonConfig :: config"></head>
 <meta charset="UTF-8">
+<title>Order</title>
 
-
-<!-- jQuery -->
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-
-<!-- Bootstrap CSS -->
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-
-
-
-<title>board</title>
-
-
-
-<script>
-
-	$(document).on('click', '#btnSave', function(e){
-
-		e.preventDefault();
-
-		
-
-		$("#form").submit();
-
-	});
-
-	
-
-	$(document).on('click', '#btnList', function(e){
-
-		e.preventDefault();
-
-		
-
-		location.href="${pageContext.request.contextPath}/board/getBoardList";
-
-	});
-
-</script>
 
 <style>
 
 body {
 
-  padding-top: 70px;
+  padding-top: 150px;
 
   padding-bottom: 30px;
 
@@ -97,71 +59,112 @@ body {
 </head>
 
 <body>
+<header th:replace="fragments/commonHeader :: header"></header>
 
-	<article>
+<div class="container">
+	<form>
+	
+	  <div class="form-row">
+	  
+	  	<label for="colFormLabelSm" class="col-form-label">주문번호</label>
+	    <div class="form-group col-md-3">
+	      <input type="text" class="form-control" id="inputEmail4" placeholder="200726001">
+	    </div>
+	    
+	    <label for="colFormLabelSm" class="col-form-label">주문시간</label>
+	    <div class="form-group col-md-3">
+	      <input type="text" class="form-control" id="inputPassword4" placeholder="날짜">
+	    </div>
+	     <div class="form-group col-md-3">
+	      <input type="text" class="form-control" id="inputPassword4" placeholder="시간">
+	    </div>
+	    
+	    <div class="form-group col-md-1">
+	      <button type="submit" class="btn btn-primary">검색</button>
+	    </div>
+	  </div>
 
-		<div class="container" role="main">
-
-			<h2>board Form</h2>
-
-			<form name="form" id="form" role="form" method="post" action="${pageContext.request.contextPath}/board/saveBoard">
-
-				<div class="mb-3">
-
-					<label for="title">제목</label>
-
-					<input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해 주세요">
-
-				</div>
-
-				
-
-				<div class="mb-3">
-
-					<label for="reg_id">작성자</label>
-
-					<input type="text" class="form-control" name="reg_id" id="reg_id" placeholder="이름을 입력해 주세요">
-
-				</div>
-
-				
-
-				<div class="mb-3">
-
-					<label for="content">내용</label>
-
-					<textarea class="form-control" rows="5" name="content" id="content" placeholder="내용을 입력해 주세요" ></textarea>
-
-				</div>
-
-				
-
-				<div class="mb-3">
-
-					<label for="tag">TAG</label>
-
-					<input type="text" class="form-control" name="tag" id="tag" placeholder="태그를 입력해 주세요">
-
-				</div>
-
-			
-
-			</form>
-
-			<div >
-
-				<button type="button" class="btn btn-sm btn-primary" id="btnSave">저장</button>
-
-				<button type="button" class="btn btn-sm btn-primary" id="btnList">목록</button>
-				
-				<button type="button" class="btn btn-sm btn-primary" id="btnAdd">추가</button>
-
-			</div>
-
+	  <div class="form-row">
+	  
+	  	<label for="colFormLabelSm" class="col-form-label">담당사원</label>
+	    <div class="form-group col-md-2">
+	      <input type="text" class="form-control" id="inputCity">
+	    </div>
+	    
+	     <div class="form-group col-md-1">
+	      <button type="submit" class="btn btn-primary">검색</button>
+	    </div>
+	    
+	    <label for="colFormLabelSm" class="col-form-label">메뉴이름</label>
+	    <div class="form-group col-md-3">
+	      <select id="inputState" class="form-control">
+	        <option selected>메뉴명</option>
+	        <option>햄버거 세트</option>
+	        <option>햄버거 단품</option>
+	        <option>포테이토</option>
+	        <option>치킨</option>
+	      </select>
+	    </div>
+	    
+	    <label for="colFormLabelSm" class="col-form-label">주문상태</label>
+	    <div class="form-group col-md-3">
+	      <select id="inputState" class="form-control">
+	        <option selected>상태</option>
+	        <option>준비중</option>
+	        <option>접수완료</option>
+	        <option>제조중</option>
+	        <option>제조완료</option>
+	        <option>포장중</option>
+	        <option>납품중</option>
+	        <option>납품완료</option>
+	        <option>처리불가</option>
+	        <option>취소</option>
+	      </select>
+	    </div>
+	    
+	  </div>
+	  <br>
+	  <div class="form-group col-md-3" style="float:right">
+			<button type="button" class="btn btn-primary" id="btnAdd">추가</button>	
+			<button type="button" class="btn btn-primary" id="btnUdt">수정</button>					
+			<button type="button" class="btn btn-primary" id="btnCan">취소</button>
 		</div>
+	</form>
+	
+	<br>
+	
+	<table class="table">
+	  <thead>
+	    <tr>
+	      <th scope="col">#</th>
+	      <th scope="col">First</th>
+	      <th scope="col">Last</th>
+	      <th scope="col">Handle</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr>
+	      <th scope="row">1</th>
+	      <td>Mark</td>
+	      <td>Otto</td>
+	      <td>@mdo</td>
+	    </tr>
+	    <tr>
+	      <th scope="row">2</th>
+	      <td>Jacob</td>
+	      <td>Thornton</td>
+	      <td>@fat</td>
+	    </tr>
+	    <tr>
+	      <th scope="row">3</th>
+	      <td>Larry</td>
+	      <td>the Bird</td>
+	      <td>@twitter</td>
+	    </tr>
+	  </tbody>
+	</table>
 
-	</article>
-
+	</div>
  
     <!-- The Modal -->
     <div id="myModal" class="modal">
@@ -169,7 +172,63 @@ body {
       <!-- Modal content -->
       <div class="modal-content">
         <span class="close">&times;</span>                                                               
-        <p>Some text in the Modal..</p>
+        <hr>
+		<form>
+	
+		  <div class="form-row">
+		  	<label for="colFormLabelSm" class="col-form-label">주문번호</label>
+		    <div class="form-group col-md-3">
+		      <input type="text" class="form-control" id="inputEmail4" placeholder="200726001">
+		    </div>
+		  </div>
+	
+		  <div class="form-row">
+		  	<label for="colFormLabelSm" class="col-form-label">메뉴이름</label>
+		    <div class="form-group col-md-3">
+		      <input type="text" class="form-control" id="inputCity">
+		    </div>
+		    
+		    <label for="colFormLabelSm" class="col-form-label">소요시간</label>
+		    <div class="form-group col-md-3">
+		      <input type="text" class="form-control" id="inputCity">
+		    </div>
+		  </div>
+		</form>
+		
+		<table class="table">
+	  <thead>
+	    <tr>
+	      <th scope="col">#</th>
+	      <th scope="col">First</th>
+	      <th scope="col">Last</th>
+	      <th scope="col">Handle</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr>
+	      <th scope="row">1</th>
+	      <td>Mark</td>
+	      <td>Otto</td>
+	      <td>@mdo</td>
+	    </tr>
+	    <tr>
+	      <th scope="row">2</th>
+	      <td>Jacob</td>
+	      <td>Thornton</td>
+	      <td>@fat</td>
+	    </tr>
+	    <tr>
+	      <th scope="row">3</th>
+	      <td>Larry</td>
+	      <td>the Bird</td>
+	      <td>@twitter</td>
+	    </tr>
+	  </tbody>
+	</table>
+		<div>	
+			<button type="button" class="btn btn-primary" id="btnUdt">저장</button>					
+			<button type="button" class="btn btn-primary" id="btnCan">취소</button>
+		</div>
       </div>
  
     </div>
@@ -179,13 +238,18 @@ body {
     var modal = document.getElementById('myModal');
 
     // Get the button that opens the modal
-    var btn = document.getElementById("btnAdd");
+    var btnAdd = document.getElementById("btnAdd");
+    var btnUdt = document.getElementById("btnUdt");
 
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];                                          
 
     // When the user clicks on the button, open the modal 
-    btn.onclick = function() {
+    btnAdd.onclick = function() {
+        modal.style.display = "block";
+    }
+    
+    btnUdt.onclick = function() {
         modal.style.display = "block";
     }
 
@@ -194,14 +258,48 @@ body {
         modal.style.display = "none";
     }
 
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
 	</script>
 
+
+	<script>
+	
+		$(document).on('click', '#btnSave', function(e){
+			e.preventDefault();
+			$("#form").submit();
+		});
+	
+		$(document).on('click', '#btnList', function(e){
+			e.preventDefault();
+			location.href="${pageContext.request.contextPath}/board/getBoardList";
+		});
+	
+	</script>
+	
+	<script type="text/javascript">
+
+$("#grid").jqGrid({
+   url: "", //json 데이터 받아오는 곳...
+   datatype: "json",
+   jsonReader: {    // json 데이터형식과 맞춰주는거 같다.
+         root : "rows",  // list 이름
+         page : "page",
+         total : "total",
+         records : "records",
+      repeatitems : false
+   },
+   colNames: ['등록일시','원료명','수량','등록자 사번','등록자 명'],
+   colModel: [{name: 'REG_DATE', width: 90, align: center},
+            {name: 'MTR_NAME', width: 70, align: center},
+            {name: 'MTR_QTT', width: 60, align: right},
+            {name: 'RGS_NO', width: 80, align: center},
+            {name: 'RGS_NAME', width: 80, align:center}],
+   height: 400,
+   rowNum: 5,
+   pager: "gridPager"
+});
+
+</script>
+	
 </body>
 
 
