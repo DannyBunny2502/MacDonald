@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko"xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 
 <!-- Bootstrap CSS -->
@@ -13,7 +13,7 @@
 
 
 <!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
 <meta charset="utf-8">
 <title>Insert title here</title>
@@ -80,6 +80,8 @@
 	float: right;
 }
 </style>
+
+
 </head>
 <body>
 
@@ -109,11 +111,10 @@
 			<div class="form-group">
 				<label for="exampleInputEmail2">메뉴명</label>
 				<select name="cars" id="cars" class="form-control">
-				  <option value="" selected>치즈버거</option>
-				  <option value="">트리플머쉬룸버거</option>
-				  <option value="">토마토버거</option>
-				  <option value="">밥버거</option>
+        			<option th:each="menu : ${menuList}" th:value="${menu.menuCode}" th:text="${menu.menuName}"></option>
 				</select>
+			</div>
+				
 			</div>
 			<div class="form-group" id="buttonGrp">
 				<div class="btn-group">
@@ -134,51 +135,36 @@
 			<div id="mtrGrid">
 				<table id="mtrTable"
 					class="table table-striped table-bordered table-hover">
-					<tr>
-						<th scope="row" width="200">등록일시</th>
-						<th scope="row" width="200">원료명</th>
-						<th scope="row" width="200">입출구분</th>
-						<th scope="row" width="200">입출 시간</th>
-						<th scope="row" width="200">입출고 수량</th>
-						<th scope="row" width="200">입출 내용</th>
-						<th scope="row" width="200">등록자</th>
-					</tr>
-					<tr>
-						<th scope="row">2020-07-26</th>
-						<td>빵</td>
-						<td>입고</td>
-						<td>13:55</td>
-						<td>100</td>
-						<td></td>
-						<td>유소연</td>
-					</tr>
-					<tr>
-						<th scope="row">2020-07-26</th>
-						<td>고기패티</td>
-						<td>입고</td>
-						<td>13:55</td>
-						<td>100</td>
-						<td></td>
-						<td>유소연</td>
-					</tr>
-					<tr>
-						<th scope="row">2020-07-26</th>
-						<td>새우패티</td>
-						<td>입고</td>
-						<td>13:55</td>
-						<td>100</td>
-						<td></td>
-						<td>유소연</td>
-					</tr>
-					<tr>
-						<th scope="row">2020-07-26</th>
-						<td>케찹</td>
-						<td>입고</td>
-						<td>13:55</td>
-						<td>100</td>
-						<td></td>
-						<td>유소연</td>
-					</tr>
+					<thead>
+		    <tr>
+		      <th scope="col" style="text-align: center;">no</th>
+		      <th scope="col" style="text-align: center;">입출구분</th>
+		      <th scope="col" style="text-align: center;">입출일시</th>
+		      <th scope="col" style="text-align: center;">원료코드</th>
+		      <th scope="col" style="text-align: center;">원료명</th>
+		      <th scope="col" style="text-align: center;">수량</th>
+		      <th scope="col" style="text-align: center;">입출내용</th>
+		      <th scope="col" style="text-align: center;">등록일시</th>
+		      <th scope="col" style="text-align: center;">등록자</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr th:if="${not #lists.isEmpty(matstoreList)}" th:each="matstore, index : ${matstoreList}" style="text-align: center;">
+		       <td th:text="${index.index}+1"></td>  
+		       <td th:text="${matstore.strGubunCode}"></td>  
+		       <td th:text="${matstore.strTime}"></td>
+		       <td th:text="${matstore.mtrCode}"></td>
+		       <td th:text="${matstore.mtrName}"></td>
+		       <td th:text="${matstore.strQnt} +' 개'"></td>
+		       <td th:text="${matstore.strDist}"></td>
+		       <td th:text="${matstore.rgstDt}"></td>
+		       <td th:text="${matstore.rgstUser}"></td>
+		     </tr>
+		     <tr th:unless="${not #lists.isEmpty(matstoreList)}">
+		       <td colspan="7">조회된 결과가 없습니다.</td>
+		     </tr>
+		  </tbody>
+					
 				</table>
 			</div>
 		</div>
@@ -191,22 +177,22 @@
 	<!-- The Modal -->
 	
 
-		<!-- Modal content -->
+	<!-- Modal content -->
 	<div id="myModal" class="modal" tabindex="-1" role="dialog">
 		<div class="modal-dialog modal-lg">
 		<div class="modal-content" style="width:640px; min-height:300px; padding:20px;">
 			<span class="close">&times;</span>
 			<div class="container-fluid">
-				<form class="form-inline">
+				<form class="form-inline" id="modalForm">
 					<div class="form-group" style="margin-right:20px;">
 						<label for="exampleInputName2">원료명</label> 
 						<input type="text"
-							class="form-control" id="exampleInputName2"
+							class="form-control" id="materialName"
 							placeholder="Jane Doe">
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail2">입출구분</label> 
-						<select name="cars" id="cars" class="form-control">
+						<select id="ioDivision" name="cars" class="form-control">
 						  <option value="I" selected>입고</option>
 						  <option value="O">출고</option>
 						</select>
@@ -217,12 +203,12 @@
 					<div class="form-group">
 						<label for="exampleInputName2">입출고 근거</label> 
 						<input type="text"
-							class="form-control" id="exampleInputName2"
+							class="form-control" id="ioContents"
 							placeholder="Jane Doe">
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail2">입출고 수량</label> <input type="text"
-							class="form-control" id="exampleInputEmail2"
+							class="form-control" id="ioQtt"
 							placeholder="3">
 					</div>
 					<br><br>
@@ -245,14 +231,24 @@
 
 		var addBtn = document.getElementById("addBtn");
 		var modifyBtn = document.getElementById("modifyBtn");
-
+		var materialName = document.getElementById("materialName");
+		var saveBtn = document.getElementById("saveBtn");
+		var cancelBtn = document.getElementById("cancelBtn");
 		var span = document.getElementsByClassName("close")[0];
 
 		addBtn.onclick = function() {
 			modal.style.display = "block";
+			$("#materialName").val('');
+			$("#ioQtt").val('');
+			$("#ioContents").val('');
+			$("#ioDivision option:eq(0)").prop("selected", true);
 		}
 		modifyBtn.onclick = function() {
 			modal.style.display = "block";
+			$("#materialName").val('');
+			$("#ioQtt").val('');
+			$("#ioContents").val('');
+			$("#ioDivision option:eq(0)").prop("selected", true);
 		}
 
 		span.onclick = function() {
@@ -263,6 +259,28 @@
 			if (event.target == modal) {
 				modal.style.display = "none";
 			}
+		}
+		
+		saveBtn.onclick = function(){
+			var mtrNameVal = $("#materialName").val();
+			var strGubumCodeVal = $("#ioDivision option:selected").val();
+			var strDistVal = $("#ioContents").val();
+			var strQntVal = $("#ioQtt").val();
+			$.ajax({
+		        type:"POST",
+		        url:"${pageContext.request.contextPath}/saveMatstore",
+		        data : {mtrName: mtrNameVal,
+		        		strGubunCode: strGubumCodeVal,
+		        		strDist: strDistVal,
+		        		strQnt: strQntVal},
+		        dataType : "json",
+		        success: function(data){
+		            alert("정상적으로 처리되었습니다.");
+		        },
+		        error: function(xhr, status, error) {
+		            alert("에러발생");
+		        }  
+		    });
 		}
 	</script>
 </body>

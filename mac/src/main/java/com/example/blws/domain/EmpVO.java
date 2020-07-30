@@ -2,70 +2,70 @@ package com.example.blws.domain;
 
 import java.sql.Date;
 
+
 public class EmpVO {
-	private String emp_code;
-	private String pstn_code;
-	private String emp_name;
-	private String emp_id;
-	private String emp_passwd;
-	private Date rgst_dt;
-	private String rgst_user;
-	private Date updt_dt;
-	private String updt_user;
-	
-	public String getEmp_code() {
-		return emp_code;
+	private String ordrCode;
+	private String ordrStatCode;
+	private String ordrExptTime;
+	private String ordrMenu;
+	private String ordrPrice;
+	private Date rgstDt;
+	private String rgstUser;
+	private Date updtDt;
+	private String updtUser;
+	public String getOrdrCode() {
+		return ordrCode;
 	}
-	public void setEmp_code(String emp_code) {
-		this.emp_code = emp_code;
+	public void setOrdrCode(String ordrCode) {
+		this.ordrCode = ordrCode;
 	}
-	public String getPstn_code() {
-		return pstn_code;
+	public String getOrdrStatCode() {
+		return ordrStatCode;
 	}
-	public void setPstn_code(String pstn_code) {
-		this.pstn_code = pstn_code;
+	public void setOrdrStatCode(String ordrStatCode) {
+		this.ordrStatCode = ordrStatCode;
 	}
-	public String getEmp_name() {
-		return emp_name;
+	public String getOrdrExptTime() {
+		return ordrExptTime;
 	}
-	public void setEmp_name(String emp_name) {
-		this.emp_name = emp_name;
+	public void setOrdrExptTime(String ordrExptTime) {
+		this.ordrExptTime = ordrExptTime;
 	}
-	public String getEmp_id() {
-		return emp_id;
+	public String getOrdrMenu() {
+		return ordrMenu;
 	}
-	public void setEmp_id(String emp_id) {
-		this.emp_id = emp_id;
+	public void setOrdrMenu(String ordrMenu) {
+		this.ordrMenu = ordrMenu;
 	}
-	public String getEmp_passwd() {
-		return emp_passwd;
+	public String getOrdrPrice() {
+		return ordrPrice;
 	}
-	public void setEmp_passwd(String emp_passwd) {
-		this.emp_passwd = emp_passwd;
+	public void setOrdrPrice(String ordrPrice) {
+		this.ordrPrice = ordrPrice;
 	}
-	public Date getRgst_dt() {
-		return rgst_dt;
+	public Date getRgstDt() {
+		return rgstDt;
 	}
-	public void setRgst_dt(Date rgst_dt) {
-		this.rgst_dt = rgst_dt;
+	public void setRgstDt(Date rgstDt) {
+		this.rgstDt = rgstDt;
 	}
-	public String getRgst_user() {
-		return rgst_user;
+	public String getRgstUser() {
+		return rgstUser;
 	}
-	public void setRgst_user(String rgst_user) {
-		this.rgst_user = rgst_user;
+	public void setRgstUser(String rgstUser) {
+		this.rgstUser = rgstUser;
 	}
-	public Date getUpdt_dt() {
-		return updt_dt;
+	public Date getUpdtDt() {
+		return updtDt;
 	}
-	public void setUpdt_dt(Date updt_dt) {
-		this.updt_dt = updt_dt;
+	public void setUpdtDt(Date updtDt) {
+		this.updtDt = updtDt;
 	}
-	public String getUpdt_user() {
-		return updt_user;
+	public String getUpdtUser() {
+		return updtUser;
 	}
-	public void setUpdt_user(String updt_user) {
-		this.updt_user = updt_user;
+	public void setUpdtUser(String updtUser) {
+		this.updtUser = updtUser;
 	}
 	
 }

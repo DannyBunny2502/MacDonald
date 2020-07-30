@@ -11,5 +11,66 @@
     <select id="selectEmpCode" resultType="String">
          select EMP_CODE from TB_EMPLOYEE where emp_passwd='123456'
     </select>
+    
+    <select id="selectOrdList" resultType="com.example.blws.domain.EmpVO">
+        select  ordr_code as ordrCode,
+		        ordr_stat_code as ordrStatCode,
+		        ordr_expt_time as ordrExptTime,
+		        ordr_menu as ordrMenu,
+		        ordr_price as ordrPrice,
+		        rgst_dt as rgstDt,
+		        rgst_user as rgstUser,
+		        updt_dt as updtDt,
+		        updt_user as updtUser
+		from 	tb_order
+    </select>
+    
+    <select id="selectMtrList" resultType="com.example.blws.domain.MtrVO">
+      select    mtr_code as mtrCode,
+		        CASE MENU_CODE WHEN 'HB01' THEN '햄버거'
+		                      WHEN 'CK01' THEN '치킨'
+		                      END AS menuCode,
+		        CASE MTR_CODE WHEN 'BD01' THEN '둥근빵'
+		                      WHEN 'BD02' THEN '긴빵'
+		                      END AS mtrName,
+		        rgst_dt as rgstDt,
+		        rgst_user as rgstUser,
+		        updt_dt as updtDt,
+		        updt_user as updtUser
+		from 	tb_material
+    </select>
  
+	<select id="selectMatsList" resultType="com.example.blws.domain.MatsVO">
+      select    mtr_code as mtrCode,
+		        CASE MTR_CODE WHEN 'BD01' THEN '둥근빵'
+		                      WHEN 'BD02' THEN '긴빵'
+		                      END AS mtrName,
+		        STR_QNT AS strQnt,
+		        NVL(str_dist, '-') as strDist,
+		        rgst_dt as rgstDt,
+		        rgst_user as rgstUser,
+		        str_time as strTime,
+		        str_gubun_code as strGubunCode
+		from 	tb_matstore
+    </select>
+    
+    <select id="selectMenuList" resultType="com.example.blws.domain.MenuVO">
+      select  menu_code as menuCode,
+	          menu_name as menuName
+	    from  tb_menu
+    </select>
+    
+    <insert id="saveMats">
+    	INSERT INTO TB_MATSTORE(MTR_CODE, STR_CODE, STR_QNT, STR_TIME, STR_DIST, RGST_DT, RGST_USER, UPDT_DT, UPDT_USER, STR_GUBUN_CODE) 
+    		 VALUES(#{mtrName},
+    		 		'STR_CODE05',
+    		 		#{strQnt},
+    		 		SYSDATE,
+    		 		#{strDist},
+    		 		SYSDATE,
+    		 		'유소연',
+    		 		SYSDATE,
+    		 		'유소연',
+    		 		#{strGubunCode})
+    </insert>
 </mapper>
