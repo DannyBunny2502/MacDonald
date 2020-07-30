@@ -1,66 +1,13 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" 
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" >
 <head th:replace="fragments/commonConfig :: config"></head>
 <meta charset="UTF-8">
 <title>Order</title>
 
-
-<style>
-
-body {
-
-  padding-top: 150px;
-
-  padding-bottom: 30px;
-
-}
-
-  /* The Modal (background) */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-        }
-    
-        /* Modal Content/Box */
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto; /* 15% from the top and centered */
-            padding: 20px;
-            border: 1px solid #888;
-            width: 50%; /* Could be more or less, depending on screen size */                          
-        }
-        /* The Close Button */
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-
-
-</style>
-
-</head>
-
 <body>
 <header th:replace="fragments/commonHeader :: header"></header>
 
+<div style="padding-top:50px;"></div>
 <div class="container">
 	<form>
 	
@@ -92,7 +39,7 @@ body {
 	    </div>
 	    
 	     <div class="form-group col-md-1">
-	      <button type="submit" class="btn btn-primary">검색</button>
+	      <button type="submit" class="btn btn-primary" style="width:100%">검색</button>
 	    </div>
 	    
 	    <label for="colFormLabelSm" class="col-form-label">메뉴이름</label>
@@ -124,7 +71,7 @@ body {
 	    
 	  </div>
 	  <br>
-	  <div class="form-group col-md-3" style="float:right">
+	 	 <div class="form-group col-md-3" style="float:right">
 			<button type="button" class="btn btn-primary" id="btnAdd">추가</button>	
 			<button type="button" class="btn btn-primary" id="btnUdt">수정</button>					
 			<button type="button" class="btn btn-primary" id="btnCan">취소</button>
@@ -133,38 +80,35 @@ body {
 	
 	<br>
 	
-	<table class="table">
-	  <thead>
-	    <tr>
-	      <th scope="col">#</th>
-	      <th scope="col">First</th>
-	      <th scope="col">Last</th>
-	      <th scope="col">Handle</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	    <tr>
-	      <th scope="row">1</th>
-	      <td>Mark</td>
-	      <td>Otto</td>
-	      <td>@mdo</td>
-	    </tr>
-	    <tr>
-	      <th scope="row">2</th>
-	      <td>Jacob</td>
-	      <td>Thornton</td>
-	      <td>@fat</td>
-	    </tr>
-	    <tr>
-	      <th scope="row">3</th>
-	      <td>Larry</td>
-	      <td>the Bird</td>
-	      <td>@twitter</td>
-	    </tr>
-	  </tbody>
-	</table>
+		<table class="table">
+		  <thead>
+		    <tr>
+		      <th scope="col">SEQ</th>
+		      <th scope="col">주문번호</th>
+		      <th scope="col">메뉴명</th>
+		      <th scope="col">상태</th>
+		      <th scope="col">주문시간</th>
+		      <th scope="col">소요시간</th>
+		      <th scope="col">담당자</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr th:if="${not #lists.isEmpty(orderList)}" th:each="order, index : ${orderList}">
+		       <td th:text="${index.index}+1"></td>                
+		       <td th:text="${order.ordrCode}"></td>
+		       <td th:text="${order.ordrMenu}"></td>
+		       <td th:text="${order.ordrStatCode}"></td>
+		       <td th:text="${order.ordrExptTime}"></td>
+		       <td th:text="${order.ordrPrice}"></td>
+		       <td th:text="${order.rgstUser}"></td>
+		     </tr>
+		     <tr th:unless="${not #lists.isEmpty(orderList)}">
+		       <td colspan="5">조회된 결과가 없습니다.</td>
+		     </tr>
+		  </tbody>
+		</table>
 
-	</div>
+	</div> <!-- End Of Container -->
  
     <!-- The Modal -->
     <div id="myModal" class="modal">
@@ -198,43 +142,40 @@ body {
 		<table class="table">
 	  <thead>
 	    <tr>
-	      <th scope="col">#</th>
-	      <th scope="col">First</th>
-	      <th scope="col">Last</th>
-	      <th scope="col">Handle</th>
+	      <th scope="col">SEQ</th>
+	      <th scope="col">주문번호</th>
+	      <th scope="col">메뉴명</th>
+	      <th scope="col">상태</th>
+	      <th scope="col">주문시간</th>
+	      <th scope="col">소요시간</th>
+	      <th scope="col">담당자</th>
 	    </tr>
 	  </thead>
 	  <tbody>
-	    <tr>
-	      <th scope="row">1</th>
-	      <td>Mark</td>
-	      <td>Otto</td>
-	      <td>@mdo</td>
-	    </tr>
-	    <tr>
-	      <th scope="row">2</th>
-	      <td>Jacob</td>
-	      <td>Thornton</td>
-	      <td>@fat</td>
-	    </tr>
-	    <tr>
-	      <th scope="row">3</th>
-	      <td>Larry</td>
-	      <td>the Bird</td>
-	      <td>@twitter</td>
-	    </tr>
+	   <tr th:if="${not #lists.isEmpty(orderList)}" th:each="order, index : ${orderList}">
+		       <td th:text="${index.index}+1"></td>                
+		       <td th:text="${order.ordrCode}"></td>
+		       <td th:text="${order.ordrMenu}"></td>
+		       <td th:text="${order.ordrStatCode}"></td>
+		       <td th:text="${order.ordrExptTime}"></td>
+		       <td th:text="${order.ordrPrice}"></td>
+		       <td th:text="${order.rgstUser}"></td>
+		     </tr>
+	                  <tr th:unless="${not #lists.isEmpty(orderList)}">
+	                  	<td colspan="5">조회된 결과가 없습니다.</td>
+	                  </tr>
 	  </tbody>
 	</table>
 		<div>	
-			<button type="button" class="btn btn-primary" id="btnUdt">저장</button>					
-			<button type="button" class="btn btn-primary" id="btnCan">취소</button>
+			<button type="button" class="btn btn-primary" id="modal-btnUdt">저장</button>					
+			<button type="button" class="btn btn-primary" id="modal-btnCan">취소</button>
 		</div>
       </div>
  
     </div>
 	
 	<script>
-	 // Get the modal
+ 	 // Get the modal
     var modal = document.getElementById('myModal');
 
     // Get the button that opens the modal
@@ -242,7 +183,8 @@ body {
     var btnUdt = document.getElementById("btnUdt");
 
     // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];                                          
+    var span = document.getElementsByClassName("close")[0];   
+    var btnCan = document.getElementById("modal-btnCan");
 
     // When the user clicks on the button, open the modal 
     btnAdd.onclick = function() {
@@ -256,11 +198,15 @@ body {
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
         modal.style.display = "none";
-    }
+    } 
+    
+    btnCan.onclick = function() {
+        modal.style.display = "none";
+    }   
 
 	</script>
 
-
+<!-- 
 	<script>
 	
 		$(document).on('click', '#btnSave', function(e){
@@ -273,32 +219,7 @@ body {
 			location.href="${pageContext.request.contextPath}/board/getBoardList";
 		});
 	
-	</script>
-	
-	<script type="text/javascript">
-
-$("#grid").jqGrid({
-   url: "", //json 데이터 받아오는 곳...
-   datatype: "json",
-   jsonReader: {    // json 데이터형식과 맞춰주는거 같다.
-         root : "rows",  // list 이름
-         page : "page",
-         total : "total",
-         records : "records",
-      repeatitems : false
-   },
-   colNames: ['등록일시','원료명','수량','등록자 사번','등록자 명'],
-   colModel: [{name: 'REG_DATE', width: 90, align: center},
-            {name: 'MTR_NAME', width: 70, align: center},
-            {name: 'MTR_QTT', width: 60, align: right},
-            {name: 'RGS_NO', width: 80, align: center},
-            {name: 'RGS_NAME', width: 80, align:center}],
-   height: 400,
-   rowNum: 5,
-   pager: "gridPager"
-});
-
-</script>
+	</script> -->
 	
 </body>
 

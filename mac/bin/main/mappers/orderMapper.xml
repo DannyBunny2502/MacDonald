@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.example.blws.mapper.OrderMapper">
+
+    <select id="selectOrderList" resultType="com.example.blws.domain.OrderVO">
+        select  ordr_code as ordrCode,
+              ordr_stat_code as ordrStatCode,
+              ordr_expt_time as ordrExptTime,
+              ordr_menu as ordrMenu,
+              ordr_price as ordrPrice,
+              rgst_dt as rgstDt,
+              rgst_user as rgstUser,
+              updt_dt as updtDt,
+              updt_user as updtUser
+      from    tb_order
+    </select>
+    
+ 
+</mapper>
