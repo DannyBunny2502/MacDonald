@@ -18,4 +18,6 @@ public interface EmpMapper {
 	List<EmpVO> selectMatsList() throws Exception;
 	List<EmpVO> selectMenuList() throws Exception;
 	void saveMats(Map<String,String> matsMap) throws Exception;
+	void updtMats(Map<String,String> updtMap) throws Exception;
+	List<EmpVO> selectWhereMats(Map<String,String> matsMap) throws Exception;
 }

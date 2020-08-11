@@ -47,5 +47,15 @@ public class EmpServiceImpl implements EmpService {
 		System.out.println("Save Matstore Service!!");
 		empMapper.saveMats(matsMap);
 	}
+
+	@Override
+	public void updtMats(Map<String, String> updtMap) throws Exception {
+		empMapper.updtMats(updtMap);
+	}
+
+	@Override
+	public List<EmpVO> selectWhereMats(Map<String, String> matsMap) throws Exception {
+		return empMapper.selectWhereMats(matsMap);
+	}
 	
 }

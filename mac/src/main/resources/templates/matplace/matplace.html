@@ -14,6 +14,12 @@
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<!--  jQuery UI CSS파일  -->
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+<!-- jQuery 기본 js파일 --> 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<!-- jQuery UI 라이브러리 js파일 --> 
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
 
 <meta charset="utf-8">
 <title>Insert title here</title>
@@ -88,32 +94,43 @@
 	<div id="formAll" class="container-fluid" style="margin-top:30px;">
 		<form class="form-inline">
 			<div class="form-group" style="margin-right:20px;">
-				<label for="exampleInputName2">원료명</label> <input type="text"
-					class="form-control" id="exampleInputName2" placeholder="원료명 입력">
+				<label for="files">원료명</label>
+			    <select name="cars" id="contentsMtrNm" class="form-control">
+			      <option value="N">선택없음</option>
+			      <optgroup label="원료">
+			        <option th:each="material : ${materialList}" th:value="${material.mtrCode}" th:text="${material.mtrName}"></option>
+			      </optgroup>
+			      <optgroup label="완제품">
+			        <option th:each="menu : ${menuList}" th:value="${menu.menuCode}" th:text="${menu.menuName}"></option>
+			      </optgroup>
+			    </select>
 			</div>
 			<div class="form-group">
-				<label for="exampleInputEmail2">입고시간</label> <input type="text"
-					class="form-control" id="exampleInputEmail2"
-					placeholder="입고년도 입력">
+				<label for="exampleInputEmail2">입고시간  </label> 
+				<input type="text" id="yymmdd" class="form-control" placeholder="입고 년월일 입력">
 			</div>
 			<div class="form-group">
-				<input type="text" class="form-control" id="exampleInputEmail2"
-					placeholder="입고시간 입력">
+				<select name="cars" id="hhmi" class="form-control">
+			      	<option value="0">전체</option>
+			        <option value="1">00:00 ~ 02:59</option>
+			        <option value="2">03:00 ~ 05:59</option>
+			        <option value="3">06:00 ~ 08:59</option>
+			        <option value="4">09:00 ~ 11:59</option>
+			        <option value="5">12:00 ~ 14:59</option>
+			        <option value="6">15:00 ~ 17:59</option>
+			        <option value="7">18:00 ~ 20:59</option>
+			        <option value="8">21:00 ~ 23:59</option>
+			    </select>
 			</div>
 			<button type="button" class="btn btn-info" id="searchBtn">검색</button>
 		
 		<br><br>
 		
 			<div class="form-group" style="margin-right:20px;">
-				<label for="exampleInputName2">담당자</label> <input type="text"
-					class="form-control" id="exampleInputName2" placeholder="담당자명 입력">
+				<label for="exampleInputName2">담당자  </label> <input type="text"
+					class="form-control" id="rgstUserName" placeholder="담당자명 입력">
 			</div>
-			<div class="form-group">
-				<label for="exampleInputEmail2">메뉴명</label>
-				<select name="cars" id="cars" class="form-control">
-        			<option th:each="menu : ${menuList}" th:value="${menu.menuCode}" th:text="${menu.menuName}"></option>
-				</select>
-			</div>
+		
 				
 			</div>
 			<div class="form-group" id="buttonGrp">
@@ -123,7 +140,7 @@
 					<button type="button" class="btn btn-default" id="cancelBtn">취소</button>
 				</div>
 			</div>
-		</form>
+		
 
 
 	</div>
@@ -149,7 +166,8 @@
 		    </tr>
 		  </thead>
 		  <tbody>
-		    <tr th:if="${not #lists.isEmpty(matstoreList)}" th:each="matstore, index : ${matstoreList}" style="text-align: center;">
+		    <tr th:if="${not #lists.isEmpty(matstoreList)}" th:each="matstore, index : ${matstoreList}" style="text-align: center;"
+		    	id="tableTr">
 		       <td th:text="${index.index}+1"></td>  
 		       <td th:text="${matstore.strGubunCode}"></td>  
 		       <td th:text="${matstore.strTime}"></td>
@@ -159,6 +177,7 @@
 		       <td th:text="${matstore.strDist}"></td>
 		       <td th:text="${matstore.rgstDt}"></td>
 		       <td th:text="${matstore.rgstUser}"></td>
+		       <td style="display:none;" th:text="${matstore.strCode}"></td>
 		     </tr>
 		     <tr th:unless="${not #lists.isEmpty(matstoreList)}">
 		       <td colspan="7">조회된 결과가 없습니다.</td>
@@ -170,14 +189,8 @@
 		</div>
 	</div>
 
-	<!-- modal -->
-	<!-- Trigger/Open The Modal -->
 
-
-	<!-- The Modal -->
-	
-
-	<!-- Modal content -->
+	<!-- Add Modal Content -->
 	<div id="myModal" class="modal" tabindex="-1" role="dialog">
 		<div class="modal-dialog modal-lg">
 		<div class="modal-content" style="width:640px; min-height:300px; padding:20px;">
@@ -185,10 +198,16 @@
 			<div class="container-fluid">
 				<form class="form-inline" id="modalForm">
 					<div class="form-group" style="margin-right:20px;">
-						<label for="exampleInputName2">원료명</label> 
-						<input type="text"
-							class="form-control" id="materialName"
-							placeholder="Jane Doe">
+						<label for="files">원료명</label>
+					    <select name="cars" class="form-control" id="materialName">
+					      <option value="N">선택없음</option>
+					      <optgroup label="원료">
+					        <option th:each="material : ${materialList}" th:value="${material.mtrCode}" th:text="${material.mtrName}"></option>
+					      </optgroup>
+					      <optgroup label="완제품">
+					        <option th:each="menu : ${menuList}" th:value="${menu.menuCode}" th:text="${menu.menuName}"></option>
+					      </optgroup>
+					    </select>
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail2">입출구분</label> 
@@ -225,34 +244,78 @@
 		</div>
 		</div>
 	</div>
+	
 	<!-- Get the modal -->
+
 	<script>
 		var modal = document.getElementById('myModal');
-
+		var modifyModal = document.getElementById('modifyModal');
+		
 		var addBtn = document.getElementById("addBtn");
 		var modifyBtn = document.getElementById("modifyBtn");
 		var materialName = document.getElementById("materialName");
 		var saveBtn = document.getElementById("saveBtn");
 		var cancelBtn = document.getElementById("cancelBtn");
+		var searchBtn = document.getElementById("searchBtn");
+		
 		var span = document.getElementsByClassName("close")[0];
-
+	
+		var mtrNameVal = $("#materialName option:selected").val();
+		var strGubumCodeVal = $("#ioDivision option:selected").val();
+		var strDistVal = $("#ioContents").val();
+		var strQntVal = $("#ioQtt").val();
+		
+		var clkStrCd;
+		
+		
 		addBtn.onclick = function() {
 			modal.style.display = "block";
-			$("#materialName").val('');
+			$("#materialName option:eq(0)").prop("selected", true);
 			$("#ioQtt").val('');
 			$("#ioContents").val('');
 			$("#ioDivision option:eq(0)").prop("selected", true);
 		}
+		// 수정 기능.
 		modifyBtn.onclick = function() {
 			modal.style.display = "block";
-			$("#materialName").val('');
+			$("#materialName option:eq(0)").prop("selected", true);
 			$("#ioQtt").val('');
 			$("#ioContents").val('');
 			$("#ioDivision option:eq(0)").prop("selected", true);
+			
+			saveBtn.onclick = function(){
+				strQntVal = $("#ioQtt").val();
+				$.ajax({
+			        type:"POST",
+			        url:"/updateMatstore",
+			        data : {mtrName: $("#materialName option:selected").val(),
+			        		strGubunCode: strGubumCodeVal,
+			        		strDist: strDistVal,
+			        		strQnt: strQntVal,
+			        		strCode: clkStrCd},
+			        dataType : "json",
+			        success: function(data){
+			        	if(data==1){
+			        		alert("정상적으로 처리되었습니다.");
+			        		span.onclick()=function(){}
+			        	}else{
+			        		alert("데이터가 저장되지 않았습니다.");
+			        	}
+			            
+			        },
+			        error: function(xhr, status, error) {
+			            alert("에러발생");
+			        }  
+			    });
+			}
+		
+			// 그 행의 strCd 정상적으로 갖고옴.
+			console.log("수정창의 기본키: "+clkStrCd);
 		}
 
 		span.onclick = function() {
 			modal.style.display = "none";
+			location.reload();
 		}
 
 		window.onclick = function(event) {
@@ -260,28 +323,128 @@
 				modal.style.display = "none";
 			}
 		}
+		<!-- Table Click Event -->
+		$("#mtrTable tr").click(function(){     
+	 
+	        var str = ""
+	        var tdArr = new Array();    // 배열 선언
+	            
+	        // 현재 클릭된 Row(<tr>)
+	        var tr = $(this);
+	        var td = tr.children();
+	        
+	        console.log("클릭한 Row의 모든 데이터 : "+tr.text());
+
+	        // 반복문을 이용해서 배열에 값을 담아 사용할 수 도 있다.
+	        td.each(function(i){
+	            tdArr.push(td.eq(i).text());
+	        });
+			
+	        // 가져온 값 변수에 담기
+	        clkStrCd = td.eq(9).text();
+	        console.log("기본키: "+clkStrCd);
+		 });
 		
+		// 원료 추가   저장 버튼
 		saveBtn.onclick = function(){
-			var mtrNameVal = $("#materialName").val();
+			var mtrNameVal = mtrNameVal;
 			var strGubumCodeVal = $("#ioDivision option:selected").val();
 			var strDistVal = $("#ioContents").val();
 			var strQntVal = $("#ioQtt").val();
+			console.log("mtrNameVal: "+mtrNameVal);
 			$.ajax({
 		        type:"POST",
-		        url:"${pageContext.request.contextPath}/saveMatstore",
-		        data : {mtrName: mtrNameVal,
+		        url:"/saveMatstore",
+		        data : {mtrName: $("#materialName option:selected").val(),
 		        		strGubunCode: strGubumCodeVal,
 		        		strDist: strDistVal,
 		        		strQnt: strQntVal},
 		        dataType : "json",
 		        success: function(data){
-		            alert("정상적으로 처리되었습니다.");
+		        	if(data==1){
+		        		alert("정상적으로 처리되었습니다.");
+		        		span.onclick()=function(){}
+		        	}else{
+		        		alert("데이터가 저장되지 않았습니다.");
+		        	}
+		            
 		        },
 		        error: function(xhr, status, error) {
 		            alert("에러발생");
 		        }  
 		    });
 		}
+		
+	// datepicker
+	$( "#yymmdd" ).datepicker({
+		dateFormat: "yy-mm-dd",
+		showMonthAfterYear: true
+	});
+	
+	// 조건에 Select
+	searchBtn.onclick = function(){
+		var inputFromTime;
+		var inputToTime;
+		var inputDateVal = $("#yymmdd").val();
+		var inputDate = inputDateVal.replace(/-/g,"");
+		var timeCode = $("#hhmi option:selected").val();
+		alert(timeCode)
+		if(timeCode = '0'){
+			inputFromTime = '000000';
+			inputToTime = '235959';
+		}else if(timeCode = '1'){
+			inputFromTime = '000000';
+			inputToTime = '025959';
+		}else if(timeCode = '2'){
+			inputFromTime = '030000';
+			inputToTime = '055959';
+		}else if(timeCode = '3'){
+			inputFromTime = '060000';
+			inputToTime = '085959';
+		}else if(timeCode = '4'){
+			inputFromTime = '090000';
+			inputToTime = '115959';
+		}else if(timeCode = '5'){
+			inputFromTime = '120000';
+			inputToTime = '145959';
+		}else if(timeCode = '6'){
+			inputFromTime = '150000';
+			inputToTime = '175959';
+		}else if(timeCode = '7'){
+			inputFromTime = '180000';
+			inputToTime = '205959';
+		}else{
+			inputFromTime = '210000';
+			inputToTime = '235959';
+		}
+		
+		$.ajax({
+	        type:"POST",
+	        url:"/selectWhere",
+	        data : {mtrName: $("#contentsMtrNm option:selected").val(),
+	        		inputFromTime: inputDate + inputFromTime,
+	        		inputToTime: inputDate + inputToTime,
+	        		rgstUser: $("#rgstUserName").val()},
+	        dataType : "json",
+	        success: function(matstoreList){
+	        	if(matstoreList){
+       	            // Contents 영역 삭제
+       	            //$('#mtrGrid').remove();
+       	            // Contents 영역 교체
+       	            //$('#mtrGrid').html(matstoreList);
+	        		$.each(matstoreList, function(index, element) {
+        				$("td:eq("+index+")").html(element.text);
+	        		});
+	        	}else{
+	        		alert("검색 실패");
+	        	}
+	            
+	        },
+	        error: function(xhr, status, error) {
+	            alert("에러발생");
+	        }  
+	    });
+	}
 	</script>
 </body>
 </html>

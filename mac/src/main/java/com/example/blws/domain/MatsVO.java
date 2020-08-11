@@ -4,7 +4,7 @@ public class MatsVO {
 	private String mtrCode;
 	private String mtrName;
 	private String strCode;
-	private int strQnt;
+	private String strQnt;
 	private String strDist;
 	private String strTime;
 	private String rgstDt;
@@ -25,10 +25,10 @@ public class MatsVO {
 	public void setStrCode(String strCode) {
 		this.strCode = strCode;
 	}
-	public int getStrQnt() {
+	public String getStrQnt() {
 		return strQnt;
 	}
-	public void setStrQnt(int strQnt) {
+	public void setStrQnt(String strQnt) {
 		this.strQnt = strQnt;
 	}
 	public String getStrTime() {

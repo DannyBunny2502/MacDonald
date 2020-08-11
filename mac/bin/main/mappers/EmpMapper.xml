@@ -46,12 +46,17 @@
 		                      WHEN 'BD02' THEN '긴빵'
 		                      END AS mtrName,
 		        STR_QNT AS strQnt,
+		        str_code as strCode,
 		        NVL(str_dist, '-') as strDist,
 		        rgst_dt as rgstDt,
 		        rgst_user as rgstUser,
 		        str_time as strTime,
-		        str_gubun_code as strGubunCode
+		        CASE STR_GUBUN_CODE WHEN 'I' THEN '입고'
+		        					WHEN 'O' THEN '출고'
+		        					WHEN 'C' THEN '완제품'
+		        					END AS strGubunCode
 		from 	tb_matstore
+		order by rgst_dt desc
     </select>
     
     <select id="selectMenuList" resultType="com.example.blws.domain.MenuVO">
@@ -63,7 +68,7 @@
     <insert id="saveMats">
     	INSERT INTO TB_MATSTORE(MTR_CODE, STR_CODE, STR_QNT, STR_TIME, STR_DIST, RGST_DT, RGST_USER, UPDT_DT, UPDT_USER, STR_GUBUN_CODE) 
     		 VALUES(#{mtrName},
-    		 		'STR_CODE05',
+    		 		SEQ_STR_CODE.NEXTVAL,
     		 		#{strQnt},
     		 		SYSDATE,
     		 		#{strDist},
@@ -73,4 +78,32 @@
     		 		'유소연',
     		 		#{strGubunCode})
     </insert>
+    
+    <insert id="updtMats">
+    	UPDATE TB_MATSTORE 
+    	   SET MTR_CODE = #{mtrCode}, STR_GUBUN_CODE = #{strGubunCode}, STR_DIST=#{strDist}, STR_QNT=#{strQnt}
+    	 WHERE STR_CODE = #{strCode}
+    </insert>
+    
+    <select id="selectWhereMats" resultType="com.example.blws.domain.MatsVO">
+		SELECT mtr_code as mtrCode,
+				        CASE MTR_CODE WHEN 'BD01' THEN '둥근빵'
+				                      WHEN 'BD02' THEN '긴빵'
+				                      END AS mtrName,
+				        STR_QNT AS strQnt,
+				        str_code as strCode,
+				        NVL(str_dist, '-') as strDist,
+				        rgst_dt as rgstDt,
+				        rgst_user as rgstUser,
+				        str_time as strTime,
+				        CASE STR_GUBUN_CODE WHEN 'I' THEN '입고'
+				        					WHEN 'O' THEN '출고'
+				        					WHEN 'C' THEN '완제품'
+				        					END AS strGubunCode
+		FROM TB_MATSTORE
+		WHERE MTR_CODE = #{mtrCode}
+			  AND RGST_USER = #{rgstUser}
+			  AND RGST_DT BETWEEN TO_DATE(#{inputFromTime}, 'YYMMDDHH24MISS') AND TO_DATE(#{inputToTime}, 'YYMMDDHH24MISS')
+		ORDER BY RGST_DT DESC
+    </select>
 </mapper>
