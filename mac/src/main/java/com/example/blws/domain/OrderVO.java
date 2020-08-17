@@ -8,9 +8,6 @@ import lombok.Data;
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @Data
 
-
-
-
 public class OrderVO {
 
 	private String ordrCode; 
